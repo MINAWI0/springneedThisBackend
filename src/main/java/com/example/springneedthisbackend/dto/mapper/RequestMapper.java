@@ -28,12 +28,20 @@ public class RequestMapper {
         requestDto.setImage(request.getImage());
         requestDto.setTotalLikes(request.getLikes().size());
         requestDto.setTotalReRequests(request.getReRequestUser().size());
+        requestDto.setTotalReplies(request.getReplyRequests().size());
+        requestDto.setTotalReplies(request.getReplyRequests().size());
         requestDto.setUser(user);
         requestDto.setLiked(isLiked);
         requestDto.setReRequest(isReRequest);
         requestDto.setReRequestUsersld(reRequestAppUserId);
         requestDto.setReplyRequests(toRequestDtos(request.getReplyRequests() , appUser));
         requestDto.setVideo(request.getVideo());
+        requestDto.setPrice(request.getPrice());
+        requestDto.setMaxPrice(request.getMaxPrice());
+        requestDto.setMinPrice(request.getMinPrice());
+        requestDto.setCategory(request.getCategory());
+        requestDto.setLocation(request.getLocation());
+
         return requestDto;
 
     }
@@ -62,11 +70,21 @@ public class RequestMapper {
         requestDto.setImage(request.getImage());
         requestDto.setTotalLikes(request.getLikes().size());
         requestDto.setTotalReRequests(request.getReRequestUser().size());
+        requestDto.setTotalReplies(request.getReplyRequests().size());
         requestDto.setUser(user);
         requestDto.setLiked(isLiked);
         requestDto.setReRequest(isReRequest);
         requestDto.setReRequestUsersld(reRequestAppUserId);
         requestDto.setVideo(request.getVideo());
+        requestDto.setPrice(request.getPrice());
+        requestDto.setMaxPrice(request.getMaxPrice());
+        requestDto.setMinPrice(request.getMinPrice());
+        requestDto.setCategory(request.getCategory());
+        requestDto.setLocation(request.getLocation());
+        requestDto.setRequestType(request.isRequestType());
+
+
+
         return requestDto;
     }
 }

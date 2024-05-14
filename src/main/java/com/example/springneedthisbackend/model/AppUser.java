@@ -40,4 +40,23 @@ public class AppUser {
     @ManyToMany
     @JsonIgnore
     private List<AppUser> followings = new ArrayList<>();
+
+    public String toString() {
+        return "AppUser{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", location='" + location + '\'' +
+                ", website='" + website + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", image='" + image + '\'' +
+                ", backgroundImage='" + backgroundImage + '\'' +
+                ", bio='" + bio + '\'' +
+                ", isSeller=" + isSeller +
+                ", req_user=" + req_user +
+                ", login_with_google=" + login_with_google +
+                '}';
+    }
 }

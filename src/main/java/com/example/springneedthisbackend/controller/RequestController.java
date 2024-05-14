@@ -33,13 +33,14 @@ public class RequestController {
             (@RequestBody Request request , @RequestHeader("Authorization") String jwt )
             throws UserException, RequestException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
+        System.out.println("appUser = " + appUser);
         Request req = requestService.createRequest(request,appUser);
-        RequestDto requestDto = RequestMapper.torequestDto(request,appUser);
+        RequestDto requestDto = RequestMapper.torequestDto(req,appUser);
+        System.out.println(new ResponseEntity<>(requestDto, HttpStatus.CREATED));
         return new ResponseEntity<>(requestDto, HttpStatus.CREATED);
-
     }
     @PostMapping("/reply_request")
-    public ResponseEntity<RequestDto> createRequest
+    public ResponseEntity<RequestDto> createOffre
             (@RequestBody RequestReplyOffre replyOffre , @RequestHeader("Authorization") String jwt )
             throws UserException, RequestException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
@@ -58,7 +59,7 @@ public class RequestController {
         return new ResponseEntity<>(requestDto, HttpStatus.OK);
 
     }
-    @GetMapping("/{requestId}")
+    @GetMapping("/get/{requestId}")
     public ResponseEntity<RequestDto> findRequestById
             (@PathVariable Long requestId, @RequestHeader("Authorization") String jwt )
             throws UserException, RequestException {
@@ -83,6 +84,7 @@ public class RequestController {
             (@RequestHeader("Authorization") String jwt )
             throws UserException, RequestException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
+        System.out.println(appUser);
         List<Request> reqs = requestService.findAllRequest();
         List<RequestDto> requestDtos = RequestMapper.toRequestDtos(reqs,appUser);
         return new ResponseEntity<>(requestDtos, HttpStatus.OK);

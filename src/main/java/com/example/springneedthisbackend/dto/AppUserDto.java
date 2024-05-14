@@ -24,4 +24,5 @@ public class AppUserDto {
     private List<AppUserDto> followers=new ArrayList<>();
     private List<AppUserDto> following=new ArrayList<>();
     private boolean followed;
+    private boolean isSeller;
 }

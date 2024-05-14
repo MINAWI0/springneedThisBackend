@@ -13,6 +13,11 @@ public class RequestDto {
     private String content;
     private String image;
     private String video;
+    private Float price;
+    private Float maxPrice;
+    private Float minPrice;
+    private String category;
+    private String location;
     private AppUserDto user;
     private LocalDateTime createdAt;
     private int totalLikes;
@@ -22,4 +27,5 @@ public class RequestDto {
     private boolean isReRequest;
     private List<Long> reRequestUsersld;
     private List<RequestDto> replyRequests;
+    private boolean requestType;
 }

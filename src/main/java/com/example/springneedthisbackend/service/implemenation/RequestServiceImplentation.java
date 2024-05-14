@@ -22,12 +22,20 @@ public class RequestServiceImplentation implements RequestService {
 
     @Override
     public Request createRequest(Request request, AppUser appUser) throws UserException, RequestException {
-
+        System.out.println( "the user making request"+appUser);
+        
         Request req = new Request();
         req.setContent(request.getContent());
         req.setCreatedAt(LocalDateTime.now());
         req.setImage(request.getImage());
-        req.setAppUser(request.getAppUser());
+        req.setPrice(request.getPrice());
+        req.setLocation(request.getLocation());
+        req.setMaxPrice(request.getMaxPrice());
+        req.setPrice(request.getPrice());
+        req.setMinPrice(request.getMinPrice());
+        req.setCategory(request.getCategory());
+        req.setAppUser(appUser);
+        System.out.println("req.getAppUser() = " + req.getAppUser());
         req.setReplyType(false);
         req.setRequestType(true);
         req.setVideo(req.getVideo());
@@ -52,6 +60,13 @@ public class RequestServiceImplentation implements RequestService {
 
     @Override
     public Request findRequestById(Long RequestId) throws RequestException {
+
+        System.out.println("inside the find by request id !!!!! ");
+        System.out.println(RequestId);
+
+        if (RequestId == null) {
+            throw new IllegalArgumentException("Request ID must not be null");
+        }
         Request request = requestRepository.findById(RequestId).orElseThrow(() -> new RequestException("Request not found" + RequestId));
         return request;
     }
@@ -73,7 +88,11 @@ public class RequestServiceImplentation implements RequestService {
 
     @Override
     public Request createdReply(RequestReplyOffre offre, AppUser appUser) throws RequestException{
+
+
+        System.out.println("inside created reply !!!!! ");
         Request replyFor = findRequestById(offre.getRequestId());
+        System.out.println(offre.getRequestId());
         Request req = new Request();
         req.setContent(offre.getContent());
         req.setCreatedAt(LocalDateTime.now());
@@ -82,9 +101,11 @@ public class RequestServiceImplentation implements RequestService {
         req.setReplyType(true);
         req.setRequestType(false);
         req.setReplyFor(replyFor);
-        Request savedReply = requestRepository.save(replyFor);
-        req.getReplyRequests().add(savedReply);
+        Request savedReply = requestRepository.save(req); // it was replyfor for befor
+
+        replyFor.getReplyRequests().add(savedReply);
         requestRepository.save(replyFor);
+        //        req.getReplyRequests().add(savedReply);
         return replyFor;
 
     }
