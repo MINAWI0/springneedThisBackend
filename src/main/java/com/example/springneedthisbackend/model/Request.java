@@ -30,5 +30,23 @@ public class Request {
     private boolean requestType;
     private LocalDateTime createdAt;
     private Float price;
+    private Float maxPrice;
+    private Float minPrice;
+    private String category;
+    private String location;
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", video='" + video + '\'' +
+                ", replyType=" + replyType +
+                ", requestType=" + requestType +
+                ", createdAt=" + createdAt +
+                ", price=" + price +
+                '}';
+    }
+
 
 }

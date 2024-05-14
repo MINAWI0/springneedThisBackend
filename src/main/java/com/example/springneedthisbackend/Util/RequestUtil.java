@@ -7,7 +7,7 @@ import com.example.springneedthisbackend.model.Request;
 public class RequestUtil {
     public final static boolean isLikedByUser(AppUser appUser, Request request){
         for(Like like :  request.getLikes()){
-            if(like.getUser().getId().equals(request.getId())){
+            if(like.getUser().getId().equals(appUser.getId())){
                 return true;
             }
         }

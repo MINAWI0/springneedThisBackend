@@ -44,6 +44,7 @@ public class AuthController {
         String password = appUser.getPassword();
         String fullName = appUser.getFullName();
         String birthDate = appUser.getBirthDate();
+        Boolean iseller = appUser.isSeller();
         AppUser isEmailExiste = userRepository.findUsersByEmail(email);
         if(isEmailExiste !=null){
             throw new UserException("Email is already taken by another account");
@@ -53,6 +54,7 @@ public class AuthController {
         createdAppUser.setPassword(passwordEncoder.encode(password));
         createdAppUser.setFullName(fullName);
         createdAppUser.setBirthDate(birthDate);
+        createdAppUser.setSeller(iseller);
 
         AppUser savedUser = userRepository.save(createdAppUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(email,password);

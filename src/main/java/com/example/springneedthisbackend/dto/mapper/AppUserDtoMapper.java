@@ -8,13 +8,18 @@ import java.util.List;
 
 public class AppUserDtoMapper {
     public static AppUserDto toAppUserDto (AppUser user) {
+        if (user == null) {
+            return null; // or throw an IllegalArgumentException
+        }
+
         AppUserDto userDto=new AppUserDto();
         userDto.setId(user.getId());
-        userDto.setEmail(user.getImage());
+        userDto.setEmail(user.getEmail());
         userDto.setFullName(user.getFullName());
         userDto.setImage(user.getImage());
         userDto.setBackgoundImage(user.getBackgroundImage());
         userDto.setBio(user.getBio());
+        userDto.setSeller(user.isSeller());
         userDto.setBirthDate(user.getBirthDate());
         userDto.setFollowers(toAppUserDtos(user.getFollowers()));
         userDto.setFollowing(toAppUserDtos(user.getFollowings()));
