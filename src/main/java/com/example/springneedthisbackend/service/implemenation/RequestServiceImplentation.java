@@ -97,6 +97,7 @@ public class RequestServiceImplentation implements RequestService {
         req.setContent(offre.getContent());
         req.setCreatedAt(LocalDateTime.now());
         req.setImage(offre.getImage());
+        req.setPrice(offre.getPrice());
         req.setAppUser(appUser);
         req.setReplyType(true);
         req.setRequestType(false);

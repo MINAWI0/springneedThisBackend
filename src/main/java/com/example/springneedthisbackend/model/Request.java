@@ -16,6 +16,8 @@ public class Request {
     @ManyToOne
     private AppUser appUser;
     private String content;
+//    private String image;
+
     private String image;
     private String video;
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)

@@ -12,7 +12,7 @@ import com.example.springneedthisbackend.response.ApiResponse;
 import com.example.springneedthisbackend.service.AppUserService;
 import com.example.springneedthisbackend.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -82,9 +82,8 @@ public class RequestController {
     @GetMapping("/")
     public ResponseEntity<List<RequestDto>> getAllRequests
             (@RequestHeader("Authorization") String jwt )
-            throws UserException, RequestException {
+            throws UserException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
-        System.out.println(appUser);
         List<Request> reqs = requestService.findAllRequest();
         List<RequestDto> requestDtos = RequestMapper.toRequestDtos(reqs,appUser);
         return new ResponseEntity<>(requestDtos, HttpStatus.OK);
@@ -92,7 +91,7 @@ public class RequestController {
     @GetMapping("/Appuser/{userId}")
     public ResponseEntity<List<RequestDto>> getAllUserRequests
             (@RequestHeader("Authorization") String jwt , @PathVariable Long userId)
-            throws UserException, RequestException {
+            throws UserException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
         List<Request> reqs = requestService.getAppUserRequest(appUser);
         List<RequestDto> requestDtos = RequestMapper.toRequestDtos(reqs,appUser);
