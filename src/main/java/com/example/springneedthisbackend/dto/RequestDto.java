@@ -11,7 +11,9 @@ import java.util.List;
 public class RequestDto {
     private Long id;
     private String content;
+//    private String image;
     private String image;
+
     private String video;
     private Float price;
     private Float maxPrice;
