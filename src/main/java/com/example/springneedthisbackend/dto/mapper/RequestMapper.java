@@ -26,6 +26,8 @@ public class RequestMapper {
         requestDto.setContent(request.getContent());
         requestDto.setCreatedAt(request.getCreatedAt());
         requestDto.setImage(request.getImage());
+        requestDto.setTitle(request.getTitle());
+        requestDto.setLink(request.getLink());
         requestDto.setTotalLikes(request.getLikes().size());
         requestDto.setTotalReRequests(request.getReRequestUser().size());
         requestDto.setTotalReplies(request.getReplyRequests().size());
@@ -41,6 +43,8 @@ public class RequestMapper {
         requestDto.setMinPrice(request.getMinPrice());
         requestDto.setCategory(request.getCategory());
         requestDto.setLocation(request.getLocation());
+        requestDto.setLatitude(request.getLatitude());
+        requestDto.setLongitude(request.getLongitude());
 
         return requestDto;
 
@@ -54,7 +58,9 @@ public class RequestMapper {
         return requestDtos;
     }
 
+
     private static RequestDto toReplyRequestDto(Request request, AppUser reqUser) {
+
         AppUserDto user = AppUserDtoMapper.toAppUserDto(request.getAppUser());
         boolean isLiked = RequestUtil.isLikedByUser(reqUser,request);
         boolean isReRequest = RequestUtil.isReRequest(reqUser,request);
@@ -68,6 +74,10 @@ public class RequestMapper {
         requestDto.setContent(request.getContent());
         requestDto.setCreatedAt(request.getCreatedAt());
         requestDto.setImage(request.getImage());
+        requestDto.setTitle(request.getTitle());
+        requestDto.setLink(request.getLink());
+        requestDto.setLatitude(request.getLatitude());
+        requestDto.setLongitude(request.getLongitude());
         requestDto.setTotalLikes(request.getLikes().size());
         requestDto.setTotalReRequests(request.getReRequestUser().size());
         requestDto.setTotalReplies(request.getReplyRequests().size());
@@ -82,6 +92,7 @@ public class RequestMapper {
         requestDto.setCategory(request.getCategory());
         requestDto.setLocation(request.getLocation());
         requestDto.setRequestType(request.isRequestType());
+
 
 
 

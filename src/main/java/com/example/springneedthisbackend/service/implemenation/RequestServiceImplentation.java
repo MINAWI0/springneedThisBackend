@@ -32,6 +32,8 @@ public class RequestServiceImplentation implements RequestService {
         req.setLocation(request.getLocation());
         req.setMaxPrice(request.getMaxPrice());
         req.setPrice(request.getPrice());
+        req.setLatitude(request.getLatitude());
+        req.setLongitude(request.getLongitude());
         req.setMinPrice(request.getMinPrice());
         req.setCategory(request.getCategory());
         req.setAppUser(appUser);
@@ -88,20 +90,24 @@ public class RequestServiceImplentation implements RequestService {
 
     @Override
     public Request createdReply(RequestReplyOffre offre, AppUser appUser) throws RequestException{
-
-
         System.out.println("inside created reply !!!!! ");
         Request replyFor = findRequestById(offre.getRequestId());
+        System.out.println("replyFor hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh  = " + replyFor);
         System.out.println(offre.getRequestId());
         Request req = new Request();
         req.setContent(offre.getContent());
         req.setCreatedAt(LocalDateTime.now());
         req.setImage(offre.getImage());
+        req.setTitle(offre.getTitle());
+        req.setLink(offre.getLink());
+        req.setLatitude(offre.getLatitude());
+        req.setLongitude(offre.getLongitude());
         req.setPrice(offre.getPrice());
         req.setAppUser(appUser);
         req.setReplyType(true);
         req.setRequestType(false);
         req.setReplyFor(replyFor);
+
         Request savedReply = requestRepository.save(req); // it was replyfor for befor
 
         replyFor.getReplyRequests().add(savedReply);
