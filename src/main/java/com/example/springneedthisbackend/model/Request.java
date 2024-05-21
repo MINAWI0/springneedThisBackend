@@ -1,5 +1,6 @@
 package com.example.springneedthisbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,10 +17,10 @@ public class Request {
     @ManyToOne
     private AppUser appUser;
     private String content;
-//    private String image;
-
     private String image;
     private String video;
+    private String title;
+    private String link;
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
     @OneToMany
@@ -36,6 +37,8 @@ public class Request {
     private Float minPrice;
     private String category;
     private String location;
+    private Double longitude;
+    private Double latitude;
     @Override
     public String toString() {
         return "Request{" +

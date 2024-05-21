@@ -1,5 +1,6 @@
 package com.example.springneedthisbackend.request;
 
+import com.example.springneedthisbackend.model.Request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,9 @@ public class RequestReplyOffre {
     private LocalDateTime createdAt;
     private String image;
     private Float price;
+    private String title;
+    private String link;
+    private Double latitude;
+    private Double longitude;
+
 }

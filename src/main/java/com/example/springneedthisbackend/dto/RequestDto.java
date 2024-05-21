@@ -1,5 +1,7 @@
 package com.example.springneedthisbackend.dto;
 
+import com.example.springneedthisbackend.model.Request;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,9 +13,9 @@ import java.util.List;
 public class RequestDto {
     private Long id;
     private String content;
-//    private String image;
     private String image;
-
+    private String title;
+    private String link;
     private String video;
     private Float price;
     private Float maxPrice;
@@ -30,4 +32,7 @@ public class RequestDto {
     private List<Long> reRequestUsersld;
     private List<RequestDto> replyRequests;
     private boolean requestType;
+    private Double longitude;
+    private Double latitude;
+
 }

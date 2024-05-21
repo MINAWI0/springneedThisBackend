@@ -58,5 +58,13 @@ public class AppUserController {
         appUserDto.setFollowed(UserUtil.isFollwedByReqUser(reqUser,user));
         return new ResponseEntity<>(appUserDto, HttpStatus.ACCEPTED);
     }
+    @PutMapping("/update")
+    public ResponseEntity<AppUserDto> updateUser(@RequestHeader("Authorization") String jwt , @RequestBody AppUser req
+    ) throws UserException{
+        AppUser reqUser = userService.findUserProfileByJwt(jwt);
+        AppUser user = userService.updateUser(reqUser.getId() , req);
+        AppUserDto userDto =  AppUserDtoMapper.toAppUserDto(user);
+        return new ResponseEntity<>(userDto, HttpStatus.ACCEPTED);
+    }
 
 }
