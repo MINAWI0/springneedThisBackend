@@ -16,4 +16,6 @@ public interface AppUserService {
     public AppUser followUser(Long appUserId ,AppUser appUser) throws UserException;
 
     public List<AppUser> searchUser(String query);
+
+    AppUser updateProfessionalInfo(Long appUserId, AppUser appUser) throws UserException;
 }

@@ -49,6 +49,7 @@ public class AppUserController {
         List<AppUserDto> appUserDtos = AppUserDtoMapper.toAppUserDtos(users);
         return new ResponseEntity<>(appUserDtos, HttpStatus.ACCEPTED);
     }
+
     @PutMapping("/{userId}/follow")
     public ResponseEntity<AppUserDto> followUser(@RequestHeader("Authorization") String jwt , @PathVariable Long userId
     ) throws UserException{
@@ -65,6 +66,21 @@ public class AppUserController {
         AppUser user = userService.updateUser(reqUser.getId() , req);
         AppUserDto userDto =  AppUserDtoMapper.toAppUserDto(user);
         return new ResponseEntity<>(userDto, HttpStatus.ACCEPTED);
+    }
+    @PutMapping("/update/pro")
+    public ResponseEntity<AppUserDto> updateProfessionalInfo(
+            @RequestHeader("Authorization") String jwt ,
+            @RequestBody AppUser appUser
+    ) {
+        try {
+            System.out.println("nihhiihihiihihihiihih" + appUser);
+            AppUser reqUser = userService.findUserProfileByJwt(jwt);
+            AppUser updatedUser = userService.updateProfessionalInfo(reqUser.getId(), appUser);
+            AppUserDto userDto =  AppUserDtoMapper.toAppUserDto(updatedUser);
+            return new ResponseEntity<>(userDto ,  HttpStatus.ACCEPTED);
+        } catch (UserException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 }

@@ -18,4 +18,7 @@ public interface RequestService {
     public Request createdReply(RequestReplyOffre req, AppUser user) throws RequestException;
     public List<Request>  getAppUserRequest(AppUser appUser);
     public List<Request> findByLikesContainsAppUser(AppUser appUser);
+    public void closeRequest(Long requestId , Long sellerId) throws RequestException, UserException;
+    List<Request> findAllClosedRequestsAndRepliesByUserId(Long userId);
+
 }

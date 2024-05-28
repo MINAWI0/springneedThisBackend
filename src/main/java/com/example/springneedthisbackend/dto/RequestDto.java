@@ -1,5 +1,6 @@
 package com.example.springneedthisbackend.dto;
 
+import com.example.springneedthisbackend.model.AppUser;
 import com.example.springneedthisbackend.model.Request;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -34,5 +35,9 @@ public class RequestDto {
     private boolean requestType;
     private Double longitude;
     private Double latitude;
+    private boolean closed;
+    private AppUser closedBy;
+
+
 
 }
