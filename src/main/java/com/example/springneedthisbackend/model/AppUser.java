@@ -27,6 +27,13 @@ public class AppUser {
     private boolean isSeller;
     private boolean req_user;
     private boolean login_with_google;
+    private String facebook; // Facebook属性
+    private String twitter; // Twitter属性
+    private String instagram; // Instagram属性
+    private String phoneNumber; // 电话号码属性
+    private String professionalEmail; // 专业电子邮件属性
+    private String termsAndService; // 服务条款属性
+    private String companyName;
     @JsonIgnore
     @OneToMany(mappedBy = "appUser",cascade= CascadeType.ALL)
     private List<Request> request =new ArrayList<>();
@@ -57,6 +64,7 @@ public class AppUser {
                 ", isSeller=" + isSeller +
                 ", req_user=" + req_user +
                 ", login_with_google=" + login_with_google +
+                ", campnay name=" + companyName +
                 '}';
     }
 }

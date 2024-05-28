@@ -82,4 +82,19 @@ public class AppUserServiceImpl implements AppUserService {
 
         return userRepository.searchUserBy(query);
     }
+    @Override
+    public AppUser updateProfessionalInfo(Long appUserId, AppUser appUser) throws UserException {
+        AppUser appUserToUpdate = findUserById(appUserId);
+
+        // Update professional information
+        appUserToUpdate.setFacebook(appUser.getFacebook());
+        appUserToUpdate.setTwitter(appUser.getTwitter());
+        appUserToUpdate.setInstagram(appUser.getInstagram());
+        appUserToUpdate.setPhoneNumber(appUser.getPhoneNumber());
+        appUserToUpdate.setProfessionalEmail(appUser.getProfessionalEmail());
+        appUserToUpdate.setTermsAndService(appUser.getTermsAndService());
+        appUserToUpdate.setCompanyName(appUser.getCompanyName());
+
+        return userRepository.save(appUserToUpdate);
+    }
 }

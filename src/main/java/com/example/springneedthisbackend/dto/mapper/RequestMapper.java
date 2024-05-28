@@ -45,6 +45,8 @@ public class RequestMapper {
         requestDto.setLocation(request.getLocation());
         requestDto.setLatitude(request.getLatitude());
         requestDto.setLongitude(request.getLongitude());
+        requestDto.setClosed(request.isClosed());
+        requestDto.setClosedBy(request.getClosedBy());
 
         return requestDto;
 
@@ -92,6 +94,10 @@ public class RequestMapper {
         requestDto.setCategory(request.getCategory());
         requestDto.setLocation(request.getLocation());
         requestDto.setRequestType(request.isRequestType());
+        requestDto.setClosed(request.isClosed());
+        requestDto.setClosedBy(request.getClosedBy());
+        requestDto.setClosedBy(request.getClosedBy());
+
 
 
 

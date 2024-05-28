@@ -25,6 +25,14 @@ public class AppUserDtoMapper {
         userDto.setFollowing(toAppUserDtos(user.getFollowings()));
         userDto.setLogin_with_google(user.isLogin_with_google());
         userDto.setLocation(user.getLocation());
+        userDto.setFacebook(user.getFacebook());
+        userDto.setTwitter(user.getTwitter());
+        userDto.setInstagram(user.getInstagram());
+        userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setProfessionalEmail(user.getProfessionalEmail());
+        userDto.setTermsAndService(user.getTermsAndService());
+        userDto.setCompanyName(user.getCompanyName());
+
         return userDto;
     }
     public static List<AppUserDto> toAppUserDtos(List<AppUser> followers) {
@@ -36,6 +44,13 @@ public class AppUserDtoMapper {
             userDto.setFullName(user.getFullName());
             userDto.setImage(user.getImage());
             userDtos.add(userDto);
+            userDto.setFacebook(user.getFacebook());
+            userDto.setTwitter(user.getTwitter());
+            userDto.setInstagram(user.getInstagram());
+            userDto.setPhoneNumber(user.getPhoneNumber());
+            userDto.setProfessionalEmail(user.getProfessionalEmail());
+            userDto.setTermsAndService(user.getTermsAndService());
+            userDto.setCompanyName(user.getCompanyName());
         }
         return userDtos;
     }}

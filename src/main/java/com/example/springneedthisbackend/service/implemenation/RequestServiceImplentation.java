@@ -3,9 +3,13 @@ package com.example.springneedthisbackend.service.implemenation;
 import com.example.springneedthisbackend.exception.RequestException;
 import com.example.springneedthisbackend.exception.UserException;
 import com.example.springneedthisbackend.model.AppUser;
+import com.example.springneedthisbackend.model.Like;
 import com.example.springneedthisbackend.model.Request;
+import com.example.springneedthisbackend.repo.LikeRepository;
 import com.example.springneedthisbackend.repo.RequestRepository;
+import com.example.springneedthisbackend.repo.UserRepository;
 import com.example.springneedthisbackend.request.RequestReplyOffre;
+import com.example.springneedthisbackend.service.AppUserService;
 import com.example.springneedthisbackend.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,13 @@ public class RequestServiceImplentation implements RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private LikeRepository likeRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AppUserService appUserService;
 
     @Override
     public Request createRequest(Request request, AppUser appUser) throws UserException, RequestException {
@@ -41,6 +52,7 @@ public class RequestServiceImplentation implements RequestService {
         req.setReplyType(false);
         req.setRequestType(true);
         req.setVideo(req.getVideo());
+        req.setClosed(false);
         return requestRepository.save(req);
     }
 
@@ -79,7 +91,10 @@ public class RequestServiceImplentation implements RequestService {
         if (!appUserId.equals(req.getAppUser().getId())) {
             throw new UserException("enable de delete other user Request");
         }
+        likeRepository.deleteAll(req.getLikes());
+        req.setClosedBy(null);
         requestRepository.deleteById(req.getId());
+        System.out.println(" =deltttettetetetttttttttttttttttttttttttttttttttttt");
 
     }
 
@@ -118,11 +133,25 @@ public class RequestServiceImplentation implements RequestService {
     }
     @Override
     public List<Request>  getAppUserRequest(AppUser appUser){
-        return requestRepository.findByReRequestUserContainsOrAppUser_IdAndRequestTypeTrueOrderByCreatedAtDesc(appUser , appUser.getId());
+//        System.out.println( "belive"+requestRepository.findByReRequestUserContainsOrAppUser_IdAndRequestTypeTrueOrderByCreatedAtDesc(appUser , appUser.getId()));
+//        return requestRepository.findByReRequestUserContainsOrAppUser_IdAndRequestTypeTrueOrderByCreatedAtDesc(appUser , appUser.getId());
+        return requestRepository.findAllRequestsByAppUserOrderByCreatedAtDesc(appUser);
     }
 
     @Override
     public  List<Request> findByLikesContainsAppUser(AppUser appUser){
         return requestRepository.findByLikesAppUser_Id(appUser.getId());
+    }
+    @Override
+    public void closeRequest(Long requestId , Long sellerId) throws RequestException, UserException {
+        Request request = findRequestById(requestId);
+        AppUser appUser = appUserService.findUserById(sellerId);
+        request.setClosed(true);
+        request.setClosedBy(appUser);
+        requestRepository.save(request);
+    }
+    @Override
+    public List<Request> findAllClosedRequestsAndRepliesByUserId(Long userId) {
+        return requestRepository.findAllClosedRequestsAndRepliesByUserId(userId);
     }
 }

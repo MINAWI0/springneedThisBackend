@@ -33,7 +33,7 @@ public class RequestController {
             (@RequestBody Request request , @RequestHeader("Authorization") String jwt )
             throws UserException, RequestException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
-        System.out.println("appUser = " + appUser);
+        System.out.println("appUser = " + appUser.getId());
         Request req = requestService.createRequest(request,appUser);
         RequestDto requestDto = RequestMapper.torequestDto(req,appUser);
         System.out.println(new ResponseEntity<>(requestDto, HttpStatus.CREATED));
@@ -74,6 +74,7 @@ public class RequestController {
             (@PathVariable Long requestId, @RequestHeader("Authorization") String jwt )
             throws UserException, RequestException {
         AppUser appUser = appUserService.findUserProfileByJwt(jwt);
+        System.out.println(" the procees of deltttong "  );
         requestService.deleteRequestById(requestId,appUser.getId());
         ApiResponse response = new ApiResponse("request has been deleted succefulyy" , true);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -92,9 +93,11 @@ public class RequestController {
     public ResponseEntity<List<RequestDto>> getAllUserRequests
             (@RequestHeader("Authorization") String jwt , @PathVariable Long userId)
             throws UserException {
-        AppUser appUser = appUserService.findUserProfileByJwt(jwt);
+        AppUser appUser = appUserService.findUserById(userId);
         List<Request> reqs = requestService.getAppUserRequest(appUser);
         List<RequestDto> requestDtos = RequestMapper.toRequestDtos(reqs,appUser);
+        System.out.println(" app id dyalo " + appUser.getId());
+        System.out.println( "walid"+ requestDtos);
         return new ResponseEntity<>(requestDtos, HttpStatus.OK);
     }
     @GetMapping("/Appuser/{userId}/likes")
@@ -105,6 +108,30 @@ public class RequestController {
         List<Request> reqs = requestService.findByLikesContainsAppUser(appUser);
         List<RequestDto> requestDtos = RequestMapper.toRequestDtos(reqs,appUser);
         return new ResponseEntity<>(requestDtos, HttpStatus.OK);
+    }
+
+    @PutMapping("/{requestId}/close/{sellerId}")
+    public ResponseEntity<ApiResponse> closeRequest(
+            @PathVariable Long requestId,
+            @PathVariable Long sellerId,
+            @RequestHeader("Authorization") String jwt
+    ) throws UserException, RequestException {
+        // Find the authenticated user
+        AppUser appUser = appUserService.findUserProfileByJwt(jwt);
+        // Close the request
+        requestService.closeRequest(requestId , sellerId);
+        // Create and return a success response
+        ApiResponse response = new ApiResponse("Request closed successfully", true);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/closed-requests")
+    public ResponseEntity<List<RequestDto>> getAllClosedRequests(
+            @RequestHeader("Authorization") String jwt) throws UserException, RequestException {
+        AppUser appUser = appUserService.findUserProfileByJwt(jwt);
+        List<Request> closedRequests = requestService.findAllClosedRequestsAndRepliesByUserId(appUser.getId());
+        List<RequestDto> requestDtos = RequestMapper.toRequestDtos(closedRequests, appUser);
+        return ResponseEntity.ok(requestDtos);
     }
 
 

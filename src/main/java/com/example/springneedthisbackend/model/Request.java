@@ -23,11 +23,11 @@ public class Request {
     private String link;
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Request> replyRequests=new ArrayList<>();
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<AppUser> reRequestUser=new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Request replyFor;
     private boolean replyType;
     private boolean requestType;
@@ -39,6 +39,9 @@ public class Request {
     private String location;
     private Double longitude;
     private Double latitude;
+    private boolean closed;
+    @OneToOne(cascade = CascadeType.ALL)
+    private AppUser closedBy;
     @Override
     public String toString() {
         return "Request{" +
